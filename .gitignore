@@ -1,0 +1,4 @@
+monte_carlo_pi_cpp
+monte_carlo_pi_f
+*.o
+*.mod

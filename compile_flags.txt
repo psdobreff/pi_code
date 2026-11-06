@@ -1,0 +1,11 @@
+-xc++
+-std=c++23
+-Wall
+-Wextra
+-nostdinc++
+-isystem
+/home/linuxbrew/.linuxbrew/opt/gcc/include/c++/16
+-isystem
+/home/linuxbrew/.linuxbrew/opt/gcc/include/c++/16/x86_64-pc-linux-gnu
+-isystem
+/home/linuxbrew/.linuxbrew/opt/gcc/include/c++/16/backward
