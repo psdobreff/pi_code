@@ -1,5 +1,5 @@
 -xc++
--std=c++23
+-std=c++17
 -Wall
 -Wextra
 -nostdinc++

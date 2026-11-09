@@ -17,7 +17,7 @@
 !> The generator relies on 64-bit integer arithmetic wrapping modulo
 !> 2**64, so build with -fwrapv.
 !>
-!> Build:  gfortran-16 -std=f2023 -O2 -fopenmp -fwrapv -o monte_carlo_pi_f monte_carlo_pi.f90
+!> Build:  gfortran -std=f2008 -O2 -fopenmp -fwrapv -o monte_carlo_pi_f monte_carlo_pi.f90
 !> Run:    OMP_NUM_THREADS=8 ./monte_carlo_pi_f [total_samples [seed]]
 !>
 !> If no seed is given, one is chosen at random and printed so the run
@@ -120,18 +120,19 @@ contains
       if (stat /= 0 .or. value < min_value) then
          write (error_unit, '(5a, i0, a)') 'Error: invalid ', what, " '", trim(arg), &
             "' (expected an integer from ", min_value, ' to 9223372036854775807)'
-         stop 1, quiet=.true.
+         stop 1
       end if
    end function read_int_arg
 
    !> A non-repeatable seed for when the user does not supply one, drawn
    !> from the intrinsic generator after seeding it from a
-   !> processor-dependent source.
+   !> processor-dependent source (gfortran 7+ uses OS entropy when
+   !> random_seed is called with no arguments).
    function random_seed_value() result(s)
       integer(int64) :: s
       real(real64) :: r
 
-      call random_init(repeatable=.false., image_distinct=.true.)
+      call random_seed()
       call random_number(r)
       s = int(r * 2.0_real64**62, int64)
    end function random_seed_value
